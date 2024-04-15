@@ -51,8 +51,8 @@ public class ProcessarDeposito extends HttpServlet {
                 int linhasAfetadas = stmtAtualizacao.executeUpdate();
 
                 if (linhasAfetadas > 0) {
-                    out.println("<html><body><h3>Depósito realizado com sucesso!</h3></body></html>");
-                    out.println("<p>Novo saldo: " + (saldoAtual + valorDeposito) + "</p>");
+                    // Redirecionar para a página contaAcessada.jsp
+                    response.sendRedirect("contaAcessada.jsp?numeroConta=" + numeroConta);
                 } else {
                     out.println("<html><body><h3>Erro ao realizar o depósito.</h3></body></html>");
                 }

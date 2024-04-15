@@ -101,9 +101,10 @@
     <footer>
         <nav>
         <a href="index.jsp">Página Inicial</a> |
-        <a href="consultarSaldo.jsp">Consultar Saldo</a> |
+        <a href="saque.jsp">Saque</a> |
+        <a href="depositar.jsp">Depositar</a> | 
         <a href="encerrarConta.jsp">Encerrar Conta</a> |
-        <a href="saque.jsp">Saque</a>
+        
             </nav>
     </footer>
 </body>

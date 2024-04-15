@@ -60,15 +60,30 @@
         a:hover {
             text-decoration: underline;
         }
+         footer {
+            background-color: #004386;
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center; /* centralizar o texto */
+        }
+
+        footer nav a {
+            color: #fff; /* cor do texto branco */
+            text-decoration: none;
+            margin: 0 10px; /* espaço entre os links */
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Menu Principal - Citibank</h1>
+        <h1>Menu Principal - Natbank</h1>
         <ul>
             <li><button onclick="depositar()">Depositar</button></li>
             <li><button onclick="sacar()">Sacar</button></li>
-            <li><button onclick="consultarSaldo()">Consultar Saldo</button></li>
+            <li><button onclick="contaAcessada()">Acessar Conta</button></li>
             <li><button onclick="encerrarConta()">Encerrar Conta</button></li>
             <li><a href="index.jsp">Voltar para pagina principal</a></li>
         </ul>

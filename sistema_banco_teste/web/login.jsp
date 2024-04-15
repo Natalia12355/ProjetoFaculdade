@@ -49,6 +49,20 @@
         button:hover {
             background-color: #00325b;
         }
+        footer {
+            background-color: #004386;
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center; /* centralizar o texto */
+        }
+        footer nav a {
+            color: #fff; /* cor do texto branco */
+            text-decoration: none;
+            margin: 0 10px; /* espaço entre os links */
+        }
     </style>
 </head>
 <body>
@@ -56,17 +70,20 @@
         <h1>Login - NatBank</h1>
         <form action="contaAcessada.jsp" method="post">
              <label for="numeroConta">Número da Conta:</label><br>
+             <br>
             <input type="text" id="numeroConta" name="numeroConta" value="${param.numeroConta}">
             <button type="submit">Login</button>
         </form>
-        <footer>
+        
+    </div>
+            <footer>
         <nav>
         <a href="index.jsp">Página Inicial</a> |
         <a href="consultarSaldo.jsp">Consultar Saldo</a> |
-        <a href="encerrarConta.jsp">Encerrar Conta</a> |
-        <a href="saque.jsp">Saque</a>
+        <a href="saque.jsp">Saque</a> |
+        <a href="depositar.jsp">Depositar</a> |
+        <a href="encerrarConta.jsp">Encerrar Conta</a> |        
         </nav>
     </footer>
-    </div>
 </body>
 </html>
