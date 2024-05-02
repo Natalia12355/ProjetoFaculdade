@@ -101,11 +101,12 @@
     <footer>
         <nav>
         <a href="index.jsp">Página Inicial</a> |
-        <a href="saque.jsp">Saque</a> |
+        <a href="saque.jsp?numeroConta=<%= numeroConta %>">Saque</a> | <!-- Passando o número da conta como parâmetro na URL -->
         <a href="depositar.jsp">Depositar</a> | 
         <a href="encerrarConta.jsp">Encerrar Conta</a> |
         
             </nav>
     </footer>
+    
 </body>
 </html>

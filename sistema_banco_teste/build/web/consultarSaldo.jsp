@@ -1,3 +1,8 @@
+<%
+// Obtém o número da conta dos parâmetros da URL
+String numeroConta = request.getParameter("numeroConta");
+%>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -41,13 +46,13 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-            text-align: center; /* centralizar o texto */
+            text-align: center;
         }
 
         footer nav a {
-            color: #fff; /* cor do texto branco */
+            color: #fff;
             text-decoration: none;
-            margin: 0 10px; /* espaço entre os links */
+            margin: 0 10px;
         }
     </style>
 </head>
@@ -56,12 +61,12 @@
         <h1>Consultar Saldo</h1>
     </header>
     <main>
+        <p>Número da Conta Acessada: <%= numeroConta %></p>
         <p>Seu saldo atual é: <span id="saldo">Carregando...</span></p>
     </main>
     <footer>
         <nav>
             <a href="index.jsp">Página Inicial</a> |
-            <a href="consultarSaldo.jsp">Consultar Saldo</a> |
             <a href="saque.jsp">Saque</a> |
             <a href="depositar.jsp">Depositar</a> |
             <a href="encerrarConta.jsp">Encerrar Conta</a> |
@@ -69,7 +74,10 @@
     </footer>
 
     <script>
-        // Faz uma solicitação ao servlet ConsultarSaldoServlet
+        // Definir o número da conta como uma variável JavaScript
+        var numeroConta = "<%= numeroConta %>";
+        
+        // Fazer uma solicitação ao servlet ConsultarSaldoServlet
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -81,7 +89,7 @@
                 }
             }
         };
-        xhr.open("GET", "ConsultarSaldoServlet", true);
+        xhr.open("GET", "ConsultarSaldoServlet?numeroConta=" + numeroConta, true);
         xhr.send();
     </script>
 </body>

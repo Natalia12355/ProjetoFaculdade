@@ -93,25 +93,13 @@
         <h1>Cadastro de Conta</h1>
     </header>
     <main>
-        <form id="cadastroForm" action="/sistema_banco/ProcessarCadastroServlet" method="post">
+        <form id="cadastroForm" action="/sistema_banco_teste_1/ProcessarCadastroServlet" method="post">
 
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required>
             
-            <label for="cpf">CPF:</label>
-            <input type="text" id="cpf" name="cpf" required>
-            
-            <label for="endereco">Endereço:</label>
-            <input type="text" id="endereco" name="endereco" required>
-            
-            <label for="telefone">Telefone:</label>
-            <input type="text" id="telefone" name="telefone" required>
-            
             <label for="saldo">Saldo Inicial:</label>
             <input type="number" id="saldo" name="saldo" required>
-            
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required>
             
             <input type="submit" value="Cadastrar">
         </form>

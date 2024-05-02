@@ -12,15 +12,15 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 @WebServlet("/SaqueServlet")
 public class SaqueServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Obtendo os parâmetros da solicitação
+        // Obtendo os parâmetros do formulário
         String numeroConta = request.getParameter("numeroConta");
         double valorSaque = Double.parseDouble(request.getParameter("valorSaque"));
+        double novoSaldo = 0.0; // Inicializar o novo saldo
 
         // Declaração das variáveis de conexão e declaração preparada
         Connection conn = null;
@@ -39,9 +39,20 @@ public class SaqueServlet extends HttpServlet {
             stmt.setString(2, numeroConta);
             stmt.executeUpdate();
 
-            // Retorna o novo saldo após o saque
-            double novoSaldo = obterSaldo(conn, numeroConta);
-            response.getWriter().println(novoSaldo);
+            // Consulta o novo saldo
+            sql = "SELECT saldo FROM tb_conta_corrente WHERE numero_conta = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, numeroConta);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                novoSaldo = rs.getDouble("saldo");
+            }
+
+            // Defina o novo saldo como um atributo da solicitação
+            request.setAttribute("novoSaldo", novoSaldo);
+
+            // Encaminhe para a página de confirmação de saque
+            request.getRequestDispatcher("confirmacaoSaque.jsp").forward(request, response);
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(SaqueServlet.class.getName()).log(Level.SEVERE, null, ex);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -63,20 +74,5 @@ public class SaqueServlet extends HttpServlet {
                 }
             }
         }
-    }
-
-    // Método para obter o saldo atual da conta
-    private double obterSaldo(Connection conn, String numeroConta) throws SQLException {
-        double saldo = 0;
-        String sql = "SELECT saldo FROM tb_conta_corrente WHERE numero_conta = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, numeroConta);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    saldo = rs.getDouble("saldo");
-                }
-            }
-        }
-        return saldo;
     }
 }

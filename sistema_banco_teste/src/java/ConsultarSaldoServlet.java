@@ -42,8 +42,12 @@ public class ConsultarSaldoServlet extends HttpServlet {
 
             if (rs.next()) {
                 double saldo = rs.getDouble("saldo");
+                // Define o tipo de conteúdo da resposta
+                response.setContentType("text/html");
+                // Escreve o saldo como resposta
                 response.getWriter().println("Seu saldo atual é: " + saldo);
             } else {
+                response.setContentType("text/html");
                 response.getWriter().println("Saldo não encontrado para a conta: " + numeroConta);
             }
         } catch (SQLException | ClassNotFoundException ex) {
