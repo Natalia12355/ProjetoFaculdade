@@ -1,8 +1,3 @@
-<%
-// Obtém o número da conta dos parâmetros da URL
-String numeroConta = request.getParameter("numeroConta");
-%>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -46,13 +41,13 @@ String numeroConta = request.getParameter("numeroConta");
             position: fixed;
             bottom: 0;
             width: 100%;
-            text-align: center;
+            text-align: center; /* centralizar o texto */
         }
 
         footer nav a {
-            color: #fff;
+            color: #fff; /* cor do texto branco */
             text-decoration: none;
-            margin: 0 10px;
+            margin: 0 10px; /* espaço entre os links */
         }
     </style>
 </head>
@@ -61,36 +56,26 @@ String numeroConta = request.getParameter("numeroConta");
         <h1>Consultar Saldo</h1>
     </header>
     <main>
-        <p>Número da Conta Acessada: <%= numeroConta %></p>
-        <p>Seu saldo atual é: <span id="saldo">Carregando...</span></p>
+        <p>Seu saldo atual é: <span id="saldo">0</span></p>
     </main>
     <footer>
         <nav>
-            <a href="index.jsp">Página Inicial</a> |
-            <a href="saque.jsp">Saque</a> |
-            <a href="depositar.jsp">Depositar</a> |
-            <a href="encerrarConta.jsp">Encerrar Conta</a> |
-        </nav>
+        <a href="index.jsp">Página Inicial</a> |
+        <a href="consultarSaldo.jsp">Consultar Saldo</a> |
+        <a href="saque.jsp">Saque</a> |
+        <a href="depositar.jsp">Depositar</a> 
+        <a href="encerrarConta.jsp">Encerrar Conta</a> |
+        
+            </nav>
     </footer>
 
     <script>
-        // Definir o número da conta como uma variável JavaScript
-        var numeroConta = "<%= numeroConta %>";
-        
-        // Fazer uma solicitação ao servlet ConsultarSaldoServlet
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    // Atualiza o saldo na página com o valor retornado pelo servlet
-                    document.getElementById("saldo").textContent = xhr.responseText;
-                } else {
-                    console.error("Erro ao obter saldo: " + xhr.status);
-                }
-            }
-        };
-        xhr.open("GET", "ConsultarSaldoServlet?numeroConta=" + numeroConta, true);
-        xhr.send();
+        // Simulando a obtenção do saldo atual da conta do servidor
+        // Aqui você pode substituir este valor pela lógica real de obtenção do saldo
+        var saldoAtual = 1000; // Supondo um saldo inicial de 1000 unidades monetárias
+
+        // Atualiza o elemento HTML com o saldo atual da conta
+        document.getElementById("saldo").textContent = saldoAtual;
     </script>
 </body>
 </html>

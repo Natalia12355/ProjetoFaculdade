@@ -4,10 +4,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import static java.lang.System.out;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 import java.util.logging.Level;
@@ -20,6 +21,7 @@ public class ProcessarCadastroServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         
         // Obtendo o nome do cliente
         String nome = request.getParameter("nome");
@@ -51,7 +53,7 @@ public class ProcessarCadastroServlet extends HttpServlet {
             // Se o cliente foi inserido com sucesso
             if (rowsAffectedCliente > 0) {
                 // Obter o ID do cliente inserido
-                java.sql.ResultSet generatedKeys = stmtCliente.getGeneratedKeys();
+                ResultSet generatedKeys = stmtCliente.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     int idCliente = generatedKeys.getInt(1);
                     
@@ -63,27 +65,27 @@ public class ProcessarCadastroServlet extends HttpServlet {
                     stmtConta.setDouble(3, saldo);
                     int rowsAffectedConta = stmtConta.executeUpdate();
                     
+                    
                     // Se a conta foi inserida com sucesso
-                    // Se a conta foi inserida com sucesso
-                   if (rowsAffectedConta > 0) {
-                       // Encaminhar para contaAcessada.jsp
-                       System.out.println("Número da conta: " + numeroConta);
-                       request.setAttribute("numeroConta", numeroConta);
-                       request.getRequestDispatcher("contaAcessada.jsp").forward(request, response);
+                    if (rowsAffectedConta > 0) {
+                        response.sendRedirect("contaAcessada.jsp?idCliente=" + idCliente);
+                        System.out.println("Redirecionamento para contaAcessada.jsp ocorreu com sucesso.");
 
-                   } else {
-                       out.println("<p>Erro ao criar a conta.</p>");
-                   }
+                    } else {
+                        out.println("<p>Erro ao criar a conta.</p>");
+                    }
                 } else {
-                    throw new SQLException("Erro ao obter o ID do cliente.");
+                    out.println("<p>Erro ao obter o ID do cliente.</p>");
                 }
             } else {
-                throw new SQLException("Erro ao cadastrar o cliente.");
+                out.println("<p>Erro ao cadastrar o cliente.</p>");
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
+            out.println("<p>Erro ao salvar o cadastro: " + e.getMessage() + "</p>");
             Logger.getLogger(ProcessarCadastroServlet.class.getName()).log(Level.SEVERE, null, e);
-            request.setAttribute("mensagem", "Erro ao salvar o cadastro: " + e.getMessage());
-            request.getRequestDispatcher("erroCadastro.jsp").forward(request, response);
+        } catch (ClassNotFoundException ex) {
+            out.println("<p>Erro interno do servidor. Por favor, entre em contato com o administrador.</p>");
+            Logger.getLogger(ProcessarCadastroServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             // Fechar recursos
             if (stmtCliente != null) {
@@ -107,6 +109,7 @@ public class ProcessarCadastroServlet extends HttpServlet {
                     Logger.getLogger(ProcessarCadastroServlet.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
+            out.close();
         }
     }
 }

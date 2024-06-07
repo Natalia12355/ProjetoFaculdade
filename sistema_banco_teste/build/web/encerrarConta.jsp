@@ -82,10 +82,10 @@
         <h1>Encerrar Conta</h1>
     </header>
     <main>
-        <form action="EncerrarContaServlet" method="post">
+        <form>
             <label for="numeroConta">Número da Conta:</label><br>
             <input type="text" id="numeroConta" name="numeroConta"><br><br>
-            <button type="submit">Encerrar Conta</button>
+            <button type="button" onclick="encerrarConta()">Encerrar Conta</button>
         </form>
     </main>
     <footer>

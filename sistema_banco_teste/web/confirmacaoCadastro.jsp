@@ -25,12 +25,5 @@
         <p>Seu cadastro foi realizado com sucesso.</p>
         <p>Aqui você pode adicionar mais informações sobre a conta recém-criada, se desejar.</p>
     </div>
-
-    <!-- Script JavaScript para redirecionar automaticamente para a página contaAcessada.jsp após um certo tempo -->
-    <script>
-        setTimeout(function() {
-            window.location.href = "contaAcessada.jsp";
-        }, 3000); // Redireciona após 3 segundos (3000 milissegundos)
-    </script>
 </body>
 </html>
